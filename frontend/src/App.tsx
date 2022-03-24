@@ -16,7 +16,7 @@ interface IEthereum {
 }
 
 function App() {
-  const [diceShowing, setDiceShowing] = useState<boolean>(true);
+  const [diceShowing, setDiceShowing] = useState<boolean>(false);
   const [result, setResult] = useState<string | null>("");
   const [info, setInfo] = useState<IEthereum>({
     account: "",
@@ -46,9 +46,21 @@ function App() {
           fontSize: "larger",
         }}
         onClick={async (e) => {
+          const requestRandomWords = await info.vrn?.requestRandomWords();
           setDiceShowing(!diceShowing);
-          const tx = await info.vrn?.requestRandomWords();
-          console.log(tx);
+          const tx = await requestRandomWords.wait();
+
+          if (tx) {
+            //check if the value is different from the last one !important
+            const randomNumber = String(await info.vrn?.s_randomWords(0));
+            setResult(randomNumber.substring(0, 2));
+            setDiceShowing(false);
+            console.log(`randomNumber: ${String(randomNumber)}`);
+
+            setTimeout(() => {
+              setResult(null);
+            }, 6000);
+          }
         }}
       >
         Roll the dice
@@ -56,7 +68,7 @@ function App() {
       <div style={{ width: "220px", height: "220px" }}>
         {diceShowing && <img src="./images/dice.gif" alt="dice" />}
       </div>
-      <h2>{result ? result : <p>The result is..</p>}</h2>
+      <h1>{result ? result : <p></p>}</h1>
     </div>
   );
 }
