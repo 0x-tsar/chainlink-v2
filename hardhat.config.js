@@ -14,7 +14,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 module.exports = {
   solidity: "0.8.7",
   networks: {
-    mumbai: {
+    rinkeby: {
       url: process.env.rinkeby,
       accounts: [process.env.account],
       // gasPrice: 50000000000,
