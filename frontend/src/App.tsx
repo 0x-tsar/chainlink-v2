@@ -51,7 +51,7 @@ function App() {
           onClick={async (e) => {
             setResult(null);
             let oldNumber = String(await info.vrn?.s_randomWords(0));
-            // console.log(`old number: ${oldNumber}`);
+            console.log(`old number: ${oldNumber}`);
 
             let requestRandomWords = await info.vrn?.requestRandomWords();
 
