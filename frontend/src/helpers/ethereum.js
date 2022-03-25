@@ -6,6 +6,12 @@ export const connectEthereum = async () => {
     method: "eth_requestAccounts",
   });
 
+  const netVersion = await window.ethereum.request({ method: "net_version" });
+
+  window.ethereum.on("chainChanged", () => {
+    window.location.reload();
+  });
+
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
 
@@ -17,5 +23,5 @@ export const connectEthereum = async () => {
 
   const balance = String(await provider.getBalance(account));
 
-  return { account, vrn, balance };
+  return { account, vrn, balance, netVersion };
 };

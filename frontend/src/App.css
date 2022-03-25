@@ -11,6 +11,16 @@
   font-family: monospace;
 }
 
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 /* .App-logo {
   height: 40vmin;
   pointer-events: none;
