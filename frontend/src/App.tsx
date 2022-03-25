@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Contract } from "ethers";
 import { connectEthereum } from "./helpers/ethereum";
-import { type } from "@testing-library/user-event/dist/type";
 
 interface VRNMethods {
   requestRandomWords(): void;
@@ -83,7 +82,7 @@ function App() {
       <h1>
         {diceShowing ? (
           <div>
-            <p style={{ fontSize: "16px", padding: "30px" }}>
+            <p style={{ fontSize: "16px", padding: "30px", color: "white" }}>
               The dice are rolling and Chainlink is generating a random
               verifiable number, this process can take up to 3 minutes depending
               on the block traffic
@@ -93,7 +92,7 @@ function App() {
           <p></p>
         )}
       </h1>
-      <h1>{result ? result : <p></p>}</h1>
+      <h1 style={{ color: "white" }}>{result ? result : <p></p>}</h1>
     </div>
   );
 }
