@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Contract } from "ethers";
 import { connectEthereum } from "./helpers/ethereum";
+import { type } from "@testing-library/user-event/dist/type";
 
 interface VRNMethods {
   requestRandomWords(): void;
@@ -32,8 +33,6 @@ function App() {
       setInfo({ account, vrn, balance, netVersion });
     };
 
-    // requestRandomWords()
-    // s_randomWords
     done();
   }, []);
 
