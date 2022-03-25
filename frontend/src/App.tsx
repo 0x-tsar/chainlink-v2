@@ -83,7 +83,7 @@ function App() {
       <h1>
         {diceShowing ? (
           <div>
-            <p style={{ fontSize: "16px" }}>
+            <p style={{ fontSize: "16px", padding: "30px" }}>
               The dice are rolling and Chainlink is generating a random
               verifiable number, this process can take up to 3 minutes depending
               on the block traffic
