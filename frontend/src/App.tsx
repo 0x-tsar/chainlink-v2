@@ -49,6 +49,7 @@ function App() {
             fontSize: "larger",
           }}
           onClick={async (e) => {
+            setResult(null);
             let oldNumber = String(await info.vrn?.s_randomWords(0));
             // console.log(`old number: ${oldNumber}`);
 
