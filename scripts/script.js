@@ -24,8 +24,10 @@ async function main() {
 
   const randomWords1 = await vrfv2Consumer.s_randomWords(0);
   const randomWords2 = await vrfv2Consumer.s_randomWords(1);
-  console.log(Number(randomWords1));
+  console.log(String(randomWords1));
   console.log(String(randomWords2));
+  console.log(String(randomWords1).charAt(0));
+  console.log(String(randomWords1)[0]);
 }
 
 main()

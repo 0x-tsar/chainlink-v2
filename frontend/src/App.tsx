@@ -18,6 +18,7 @@ interface IEthereum {
 function App() {
   const [diceShowing, setDiceShowing] = useState<boolean>(false);
   const [result, setResult] = useState<string | null>("");
+  const [lastNumber, setLastNumber] = useState<string | null>("");
   const [info, setInfo] = useState<IEthereum>({
     account: "",
     vrn: undefined,
@@ -46,21 +47,24 @@ function App() {
           fontSize: "larger",
         }}
         onClick={async (e) => {
-          const requestRandomWords = await info.vrn?.requestRandomWords();
-          setDiceShowing(!diceShowing);
-          const tx = await requestRandomWords.wait();
+          let oldNumber = String(await info.vrn?.s_randomWords(0));
+          console.log(`old number: ${oldNumber}`);
 
-          if (tx) {
-            //check if the value is different from the last one !important
-            const randomNumber = String(await info.vrn?.s_randomWords(0));
-            setResult(randomNumber.substring(0, 2));
-            setDiceShowing(false);
-            console.log(`randomNumber: ${String(randomNumber)}`);
+          let requestRandomWords = await info.vrn?.requestRandomWords();
 
-            setTimeout(() => {
-              setResult(null);
-            }, 6000);
+          setDiceShowing(true);
+          await requestRandomWords.wait();
+          let newNumber = String(await info.vrn?.s_randomWords(0));
+
+          while (oldNumber === newNumber) {
+            newNumber = String(await info.vrn?.s_randomWords(0));
           }
+
+          newNumber = String(await info.vrn?.s_randomWords(0));
+          console.log(`newNumber: ${newNumber[0]}`);
+
+          setDiceShowing(false);
+          setResult(newNumber[0]);
         }}
       >
         Roll the dice
@@ -68,6 +72,18 @@ function App() {
       <div style={{ width: "220px", height: "220px" }}>
         {diceShowing && <img src="./images/dice.gif" alt="dice" />}
       </div>
+      <h1>
+        {diceShowing ? (
+          <div>
+            <p style={{ fontSize: "16px" }}>
+              The dice are rolling and Chainlink is generating a random
+              verifiable number, this process can take up to 2 minutes..
+            </p>
+          </div>
+        ) : (
+          <p></p>
+        )}
+      </h1>
       <h1>{result ? result : <p></p>}</h1>
     </div>
   );
