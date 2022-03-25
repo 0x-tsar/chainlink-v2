@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { VRFv2Consumer } from "./artifacts/contracts/VRFv2Consumer.sol/VRFv2Consumer.json";
+import VRFv2Consumer from "./artifacts/contracts/VRFv2Consumer.sol/VRFv2Consumer.json";
 
 export const connectEthereum = async () => {
   const [account] = await window.ethereum.request({
